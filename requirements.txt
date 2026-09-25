@@ -1,0 +1,14 @@
+langgraph>=1.2.10
+langchain>=1.3.14
+langchain-core>=1.5.3
+langchain-google-genai>=4.3.3
+python-dotenv>=1.2.2
+pydantic>=2.12.5
+
+# Opcionales: solo se importan si elegís ese proveedor / activás Tavily.
+# langchain-openai>=1.4.3
+# langchain-anthropic>=1.5.4
+# langchain-tavily>=0.2
+
+# Para correr los tests locales (no requieren API key)
+pytest>=8.0

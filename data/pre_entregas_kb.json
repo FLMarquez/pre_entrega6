@@ -1,0 +1,62 @@
+[
+  {
+    "pre_entrega": "Pre-entrega 1",
+    "titulo": "Pipeline de extracción de entidades",
+    "calificacion": 8,
+    "comentario": "Buen uso de esquemas Pydantic para validar la salida del LLM. Faltó documentar los casos borde en el prompt de extracción."
+  },
+  {
+    "pre_entrega": "Pre-entrega 2",
+    "titulo": "Sistema RAG de accidentes laborales",
+    "calificacion": 9,
+    "comentario": "Excelente separación entre ingesta y consulta. El filtro de veracidad evita alucinaciones de forma robusta. Muy prolijo."
+  },
+  {
+    "pre_entrega": "Pre-entrega 3",
+    "titulo": "Agente de gestión documental (SIG)",
+    "calificacion": 7,
+    "comentario": "La normalización de documentos es correcta, pero el manejo de errores ante archivos corruptos es débil e incompleto."
+  },
+  {
+    "pre_entrega": "Pre-entrega 4",
+    "titulo": "Generador automatizado de tests con Cypress",
+    "calificacion": 6,
+    "comentario": "La generación de selectores es confusa en escenarios con componentes dinámicos. Se recomienda mejorar la estrategia de espera."
+  },
+  {
+    "pre_entrega": "Pre-entrega 5",
+    "titulo": "Reportes automáticos con fechas cronológicas",
+    "calificacion": 9,
+    "comentario": "Excelente corrección del cálculo de fechas según la cronología del PDF. Reporte claro y consistente."
+  },
+  {
+    "pre_entrega": "Pre-entrega 5",
+    "titulo": "Reportes automáticos con fechas cronológicas (revisión)",
+    "calificacion": 8,
+    "comentario": "Buena iteración sobre el feedback anterior, aunque todavía falta un caso de prueba para fechas ambiguas."
+  },
+  {
+    "pre_entrega": "Pre-entrega 4",
+    "titulo": "Generador de Tests Automatizados con Cypress v2",
+    "calificacion": 8,
+    "comentario": "Mejora notable respecto a la versión anterior. El generador de Page Objects quedó sólido y bien organizado."
+  },
+  {
+    "pre_entrega": "Pre-entrega 2",
+    "titulo": "Sistema RAG de accidentes laborales (embeddings)",
+    "calificacion": 5,
+    "comentario": "Problema recurrente: el modelo de embeddings de ingesta no coincidía con el de consulta, lo que generaba resultados pobres."
+  },
+  {
+    "pre_entrega": "Pre-entrega 3",
+    "titulo": "Agente de gestión documental (SIG) - normas",
+    "calificacion": 9,
+    "comentario": "Muy buena estructuración de las normas en Markdown, facilita enormemente la trazabilidad y la búsqueda semántica."
+  },
+  {
+    "pre_entrega": "Pre-entrega 1",
+    "titulo": "Pipeline de extracción de entidades (schemas)",
+    "calificacion": 4,
+    "comentario": "Faltaron validaciones críticas en el esquema de salida, generando errores silenciosos difíciles de detectar."
+  }
+]

@@ -21,6 +21,30 @@ MAX_STEPS = int(os.getenv("MAX_STEPS", "6"))
 MAX_REFINEMENTS = int(os.getenv("MAX_REFINEMENTS", "1"))
 
 
+def _collect_gemini_keys() -> list[str]:
+    """Junta GOOGLE_API_KEY/GEMINI_API_KEY + GEMINI_API_KEY_1..N del .env.
+
+    Soporta múltiples keys (por ejemplo, de distintos proyectos de AI Studio)
+    para poder rotar entre ellas si una se queda sin cuota gratuita. Con una
+    sola key definida, el comportamiento es idéntico al de antes.
+    """
+    keys: list[str] = []
+    primary = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+    if primary:
+        keys.append(primary)
+
+    i = 1
+    while True:
+        extra = os.getenv(f"GEMINI_API_KEY_{i}")
+        if not extra:
+            break
+        if extra not in keys:
+            keys.append(extra)
+        i += 1
+
+    return keys
+
+
 def get_llm(temperature: float = 0.0):
     """Devuelve el chat model configurado según `LLM_PROVIDER`.
 
@@ -28,18 +52,28 @@ def get_llm(temperature: float = 0.0):
     el orquestador use el mismo modelo y sea trivial cambiar de proveedor.
     """
     if LLM_PROVIDER == "gemini":
-        from langchain_google_genai import ChatGoogleGenerativeAI
-
-        api_key = os.getenv("GOOGLE_API_KEY")
-        if not api_key:
+        model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        keys = _collect_gemini_keys()
+        if not keys:
             raise RuntimeError(
                 "Falta GOOGLE_API_KEY. Copiá .env.example a .env y completá tu "
                 "API key gratuita de Google AI Studio (https://aistudio.google.com/app/apikey)."
             )
-        return ChatGoogleGenerativeAI(
-            model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
-            google_api_key=api_key,
+
+        if len(keys) == 1:
+            from langchain_google_genai import ChatGoogleGenerativeAI
+
+            return ChatGoogleGenerativeAI(
+                model=model, google_api_key=keys[0], temperature=temperature
+            )
+
+        from rotating_llm import RotatingChatGoogleGenerativeAI
+
+        return RotatingChatGoogleGenerativeAI(
+            model=model,
+            google_api_key=keys[0],
             temperature=temperature,
+            api_keys=keys,
         )
 
     if LLM_PROVIDER == "openai":

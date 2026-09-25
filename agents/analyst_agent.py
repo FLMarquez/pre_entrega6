@@ -15,6 +15,7 @@ from __future__ import annotations
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.prebuilt import create_react_agent
 
+from agents.utils import extract_text
 from config import get_llm
 from state import OrchestratorState
 from tools.analysis_tools import get_analysis_tools
@@ -59,7 +60,7 @@ def analyst_node(state: OrchestratorState) -> dict:
         )
 
     result = _get_agent().invoke({"messages": [HumanMessage(content=task)]})
-    final_text = result["messages"][-1].content
+    final_text = extract_text(result["messages"][-1])
 
     step = state.get("steps", 0) + 1
     return {
